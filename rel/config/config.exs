@@ -4,11 +4,11 @@ import System, only: [get_env: 1]
 host = get_env("HOST")
 
 config :api, ApiWeb.Endpoint,
-  url: [host: host, port: 80],
+  url: [host: host, port: 8080],
   check_origin: ["//#{host}", "//plural-api"]
 
 config :rtc, RtcWeb.Endpoint,
-  url: [host: host, port: 80],
+  url: [host: host, port: 8080],
   check_origin: ["//#{host}", "//plural-rtc"]
 
 config :core, hostname: host

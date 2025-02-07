@@ -2,7 +2,7 @@ import Config
 import System, only: [get_env: 1]
 
 config :rtc, RtcWeb.Endpoint,
-  url: [host: get_env("HOST"), port: 80],
+  url: [host: get_env("HOST"), port: 8080],
   check_origin: ["//#{get_env("HOST")}", "//plural-rtc"],
   secret_key_base: get_env("SECRET_KEY_BASE"),
   server: true

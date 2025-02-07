@@ -110,11 +110,18 @@ ENV REPLACE_OS_VARS=true \
 
 WORKDIR /opt/app
 
+# Create plural user and home directory, set owner to plural
+RUN addgroup -g 10001 plural && \
+    adduser -s /bin/sh -u 10001 -G plural -h "/opt/app" -S -D plural && \
+    chown -R 10001:10001 "/opt/app"
+
 COPY --from=tools /usr/local/bin/plural /usr/local/bin/plural
 COPY --from=tools /usr/local/bin/helm /usr/local/bin/helm
 COPY --from=tools /usr/local/bin/goon /usr/local/bin/goon
 COPY --from=tools /usr/local/bin/terrascan /usr/local/bin/terrascan
 COPY --from=tools /usr/local/bin/trivy /usr/local/bin/trivy
-COPY --from=builder /opt/built .
+COPY --from=builder --chown=10001:10001 /opt/built .
+
+USER plural
 
 CMD trap 'exit' INT; /opt/app/bin/${APP_NAME} foreground
