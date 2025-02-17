@@ -25,7 +25,7 @@ spec:
     prometheus:
       format: memory
       legend: $pod
-      query: sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-plural-[0-9]+"}) by (pod)
+      query: sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-plural-[0-9]+",image!="",container!=""}) by (pod)
   - name: volume
     type: prometheus
     prometheus:
@@ -95,7 +95,7 @@ spec:
     prometheus:
       format: memory
       legend: $pod
-      query: sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-hydra-[0-9]+"}) by (pod)
+      query: sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-hydra-[0-9]+",image!="",container!=""}) by (pod)
   - name: statefulset
     type: kubernetes
     kubernetes:

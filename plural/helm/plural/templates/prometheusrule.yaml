@@ -71,7 +71,7 @@ spec:
     - alert: PluralHydraMEM
       expr: |
         (
-          sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-hydra-[0-9]+"})
+          sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-hydra-[0-9]+",image!="",container!=""})
           / sum(kube_pod_container_resource_requests{endpoint="http",resource="memory",namespace="{{ .Release.Namespace }}", pod=~"plural-hydra-[0-9]+"})
         )  > 1
       for: 5m
@@ -97,7 +97,7 @@ spec:
     - alert: PluralDbMEM
       expr: |
         (
-          sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-plural-[0-9]+"})
+          sum(container_memory_working_set_bytes{namespace="{{ .Release.Namespace }}",pod=~"plural-plural-[0-9]+",image!="",container!=""})
           / sum(kube_pod_container_resource_requests{endpoint="http",resource="memory",namespace="{{ .Release.Namespace }}", pod=~"plural-plural-[0-9]+"})
         )  > 1
       for: 5m
